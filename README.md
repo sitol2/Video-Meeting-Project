@@ -1,4 +1,4 @@
-# LSPU Video Meeting System
+# Video Meeting System
 
 A web-based video conferencing application designed for conducting entrance and exit interviews. The system supports role-based access (Admin/Student), real-time video calls via WebRTC, session recording with local storage, and automated transcription.
 
