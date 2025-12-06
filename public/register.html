@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interview - Student Registration</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/register.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Google+Sans:wght@400;500;700&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <div class="login-container">
+        <div class="login-card">
+            <div class="login-header">
+                <h1 class="login-title">Interview</h1>
+                <p class="login-subtitle">Student Registration</p>
+            </div>
+
+            <form id="register-form">
+                <div class="form-group">
+                    <label class="form-label" for="studentId">Student ID</label>
+                    <input type="text" id="studentId" class="form-input" placeholder="Enter your student ID" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="name">Full Name</label>
+                    <input type="text" id="name" class="form-input" placeholder="Enter your full name" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="course">Course</label>
+                    <input type="text" id="course" class="form-input" placeholder="Enter your course" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="email">Email</label>
+                    <input type="email" id="email" class="form-input" placeholder="yourname@gmail.com" required>
+                    <p class="field-hint">Must be a @gmail.com address</p>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="password">Password</label>
+                    <input type="password" id="password" class="form-input" placeholder="Create a strong password"
+                        required>
+                    <p class="field-hint">Min 8 characters, 1 uppercase, 1 special character</p>
+                </div>
+
+                <p id="error-msg" class="error-msg"></p>
+                <p id="success-msg" class="success-msg"></p>
+
+                <button type="submit" class="submit-btn" id="submit-btn">Create Account</button>
+            </form>
+
+            <div class="form-footer">
+                Already have an account? <a href="login.html">Sign in</a>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/register.js"></script>
+</body>
+
+</html>

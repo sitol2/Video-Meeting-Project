@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Dashboard - Interview</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/index.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Google+Sans:wght@400;500;700&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <div class="dashboard-layout">
+        <aside class="sidebar" id="sidebar-container"></aside>
+
+        <main class="main-content">
+            <div class="dashboard-header">
+                <h1 class="dashboard-title">Student Dashboard</h1>
+                <div class="user-info">
+                    <span class="user-name" id="username">Loading...</span>
+                </div>
+            </div>
+
+            <div class="dashboard-grid">
+                <div class="card">
+                    <div class="card-header">
+                        <span class="card-icon">👤</span>
+                        <h2 class="card-title">Profile</h2>
+                    </div>
+                    <div class="card-content">
+                        <div class="profile-info">
+                            <div class="profile-item">
+                                <span class="profile-label">Username</span>
+                                <span class="profile-value" id="profile-username">Loading...</span>
+                            </div>
+                            <div class="profile-item">
+                                <span class="profile-label">Role</span>
+                                <span class="profile-value"><span class="role-badge">Student</span></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <span class="card-icon">📅</span>
+                        <h2 class="card-title">Interview Schedule</h2>
+                    </div>
+                    <div class="card-content">
+                        <div class="calendar-container">
+                            <div class="calendar-header">
+                                <button id="prev-month-student" class="nav-btn"><i
+                                        class="fas fa-chevron-left"></i></button>
+                                <h3 id="current-month-year-student">December 2025</h3>
+                                <button id="next-month-student" class="nav-btn"><i
+                                        class="fas fa-chevron-right"></i></button>
+                            </div>
+                            <div class="calendar-weekdays">
+                                <div>Sun</div>
+                                <div>Mon</div>
+                                <div>Tue</div>
+                                <div>Wed</div>
+                                <div>Thu</div>
+                                <div>Fri</div>
+                                <div>Sat</div>
+                            </div>
+                            <div class="calendar-grid" id="calendar-grid-student">
+                                <!-- Calendar days will be populated here -->
+                            </div>
+                        </div>
+                        <div class="schedule-empty" id="schedule-empty-student" style="display: none;">
+                            No upcoming interviews
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <span class="card-icon">📞</span>
+                        <h2 class="card-title">Join Meeting</h2>
+                    </div>
+                    <div class="card-content">
+                        <div class="call-status">
+                            Enter a meeting code to join
+                        </div>
+                        <div class="input-group">
+                            <input type="text" id="join-code-input" placeholder="Enter code to join">
+                        </div>
+                        <button class="btn" id="join-call-btn">Join Call</button>
+                    </div>
+                </div>
+
+                <!-- Meeting Invitations Card -->
+                <div class="card" id="invitations-card" style="display: none;">
+                    <div class="card-header">
+                        <span class="card-icon">📨</span>
+                        <h2 class="card-title">Meeting Invitations</h2>
+                    </div>
+                    <div class="card-content">
+                        <div id="invitations-list" style="display: flex; flex-direction: column; gap: 12px;"></div>
+                    </div>
+                </div>
+
+                <div class="card activity-log">
+                    <div class="card-header">
+                        <span class="card-icon">📝</span>
+                        <h2 class="card-title">Activity Log</h2>
+                    </div>
+                    <div class="card-content">
+                        <div class="log-content" id="activity-log">
+                            <div class="log-entry">System initialized...</div>
+                            <div class="log-entry">Waiting for activity...</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="js/shared/navigation.js"></script>
+    <script src="js/index.js"></script>
+</body>
+
+</html>

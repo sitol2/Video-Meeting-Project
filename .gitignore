@@ -1,0 +1,61 @@
+# Dependencies
+node_modules/
+
+# ML Models (large files - download separately)
+my_bert_model/
+interview_model/
+
+# FFmpeg binaries (large - download separately)
+ffmpeg-*/
+
+# Database files
+*.sqlite
+*.db
+sessions.db
+users.db
+database.sqlite
+
+# Uploaded recordings and transcripts
+public/uploads/
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# SSL certificates (generated at runtime)
+*.pem
+*.key
+*.crt
+
+# IDE and editor files
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# OS generated files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Logs
+*.log
+npm-debug.log*
+
+# Backup files
+*.backup
+*.bak
+
+# Test files
+test_*.txt
+
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+.Python
+
+# Thesis document (optional - remove line if you want to include)
+*.docx

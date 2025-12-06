@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interview Schedule - Admin</title>
+    <link rel="stylesheet" href="/css/admin.css">
+    <link rel="stylesheet" href="/css/schedule.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+
+<body>
+    <div class="container">
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar-container"></aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="header">
+                <h1>Interview Schedule</h1>
+                <div class="user-info">
+                    <span id="user-name">Admin</span>
+                </div>
+            </header>
+
+            <div class="schedule-container">
+                <!-- Left Panel: Upcoming Interviews -->
+                <div class="left-panel">
+                    <h2>Upcoming Interviews</h2>
+                    <div class="interview-list" id="interview-list">
+                        <div class="no-interviews" id="no-interviews">No incoming interviews</div>
+                        <!-- Interview items will be populated here -->
+                    </div>
+                </div>
+
+                <!-- Right Panel: Calendar -->
+                <div class="right-panel">
+                    <div class="calendar-header">
+                        <button id="prev-month" class="nav-btn"><i class="fas fa-chevron-left"></i></button>
+                        <h3 id="current-month-year">December 2025</h3>
+                        <button id="next-month" class="nav-btn"><i class="fas fa-chevron-right"></i></button>
+                    </div>
+                    <div class="calendar">
+                        <div class="calendar-weekdays">
+                            <div>Sun</div>
+                            <div>Mon</div>
+                            <div>Tue</div>
+                            <div>Wed</div>
+                            <div>Thu</div>
+                            <div>Fri</div>
+                            <div>Sat</div>
+                        </div>
+                        <div class="calendar-grid" id="calendar-grid">
+                            <!-- Calendar days will be populated here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Add Interview Modal -->
+    <div class="modal" id="add-interview-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Add Interview</h3>
+                <span class="close" id="close-modal">&times;</span>
+            </div>
+            <div class="modal-body">
+                <form id="interview-form">
+                    <div class="form-group">
+                        <label for="instructor-name">Instructor Name:</label>
+                        <div class="name-input-group">
+                            <select id="instructor-title" class="title-select">
+                                <option value="Mr.">Mr.</option>
+                                <option value="Ms.">Ms.</option>
+                                <option value="Mrs.">Mrs.</option>
+                            </select>
+                            <input type="text" id="instructor-name" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="student-search">Student:</label>
+                        <input type="text" id="student-search" placeholder="Search by name, email, or student ID"
+                            required>
+                        <div class="student-search-results" id="student-search-results"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="interview-date">Date & Time:</label>
+                        <input type="datetime-local" id="interview-date" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="interview-type">Interview Type:</label>
+                        <select id="interview-type" required>
+                            <option value="Entrance">Entrance Interview</option>
+                            <option value="Exit">Exit Interview</option>
+                        </select>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="button" id="cancel-btn">Cancel</button>
+                        <button type="submit">Schedule Interview</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- View Day Interviews Modal -->
+    <div class="modal" id="view-day-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="view-day-title">Interviews - December 1, 2025</h3>
+                <span class="close" id="close-day-modal">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="day-interviews-list" id="day-interviews-list">
+                    <!-- Interviews for the selected day will be shown here -->
+                </div>
+                <div class="form-actions">
+                    <button id="add-interview-day-btn">Add Interview</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/js/shared/navigation.js"></script>
+    <script src="/js/schedule.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LSPU Video Meeting</title>
+    <link rel="icon" href="data:,">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/meeting.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Google+Sans:wght@400;500;700&display=swap"
+        rel="stylesheet">
+</head>
+
+<body class="meeting-body">
+    <!-- Lobby -->
+    <div id="lobby">
+        <div class="lobby-card glass-card">
+            <h1>LSPU Video Meeting</h1>
+            <p id="lobby-msg">Create or join a meeting to get started.</p>
+            <p id="server-ip-display"
+                style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 20px; word-break: break-all; display: none;">
+            </p>
+
+            <div class="lobby-input-container">
+                <p id="user-greeting"
+                    style="display: none; color: var(--text-secondary); margin-bottom: 15px; font-size: 0.95rem;">
+                    Welcome, <span id="user-name-display" style="color: #818CF8; font-weight: 600;"></span>
+                </p>
+                <input type="text" id="name-input" placeholder="Enter Your Name (Admin)" required
+                    style="margin-bottom: 15px;">
+                <input type="text" id="room-input" placeholder="Enter Room Code">
+
+                <!-- Audio Input Selection -->
+                <div style="margin-top: 15px; width: 100%;">
+                    <label for="audio-input-select"
+                        style="display: block; margin-bottom: 5px; font-size: 0.9rem; color: rgba(255,255,255,0.7); text-align: left;">Microphone:</label>
+                    <select id="audio-input-select" class="nav-btn"
+                        style="width: 100%; text-align: left; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: white;">
+                        <option value="">Default</option>
+                    </select>
+                </div>
+
+                <div class="lobby-buttons" style="margin-top: 20px;">
+                    <button id="join-btn" class="lobby-btn secondary">
+                        <span>Join Room</span>
+                    </button>
+                    <button id="create-btn" class="lobby-btn primary">
+                        <span>+ New Meeting</span>
+                    </button>
+                </div>
+
+                <!-- Invite Student Button (Admin only) -->
+                <button id="invite-student-btn" class="lobby-btn"
+                    style="display: none; margin-top: 15px; background: linear-gradient(135deg, #06B6D4 0%, #0891B2 100%);">
+                    <span>📨 Invite Student</span>
+                </button>
+            </div>
+            <button id="back-to-dashboard" class="lobby-btn ghost">← Back to Dashboard</button>
+        </div>
+    </div>
+
+    <!-- Invite Student Modal -->
+    <div id="invite-modal"
+        style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); justify-content: center; align-items: center; z-index: 1000;">
+        <div class="glass-card"
+            style="max-width: 600px; width: 90%; padding: 32px; max-height: 80vh; display: flex; flex-direction: column;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                <h2 style="margin: 0;">Invite Student</h2>
+                <button id="close-invite-modal" class="nav-btn" style="padding: 5px 10px;">✕</button>
+            </div>
+
+            <p style="color: var(--text-secondary); margin-bottom: 15px;">Search for a student by name or ID:</p>
+
+            <div style="display: flex; gap: 10px; margin-bottom: 20px;">
+                <input type="text" id="student-search-input" placeholder="Enter name or student ID..."
+                    style="flex: 1; padding: 12px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); border-radius: 8px; color: white;">
+                <button id="search-student-btn" class="cta-btn">Search</button>
+            </div>
+
+            <div id="search-results"
+                style="flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; min-height: 150px;">
+                <div style="text-align: center; color: var(--text-secondary); margin-top: 40px;">
+                    Enter a search term to find students
+                </div>
+            </div>
+
+            <div id="invite-status" style="margin-top: 15px; padding: 10px; border-radius: 8px; display: none;"></div>
+        </div>
+    </div>
+
+    <!-- Room -->
+    <div id="room" style="display: none; flex-direction: column; height: 100vh;">
+        <div class="meeting-header">
+            <div class="meeting-logo">LSPU Meet</div>
+            <div style="display: flex; align-items: center; gap: 10px;">
+                <div id="status-msg" style="color: #4ade80; font-size: 0.9rem; margin-right: 10px; font-weight: 600;">
+                    Waiting...</div>
+                <button id="copy-code-btn" title="Click to Copy Code"
+                    style="background: rgba(255,255,255,0.1); padding: 6px 12px; border-radius: 6px; border: 1px solid rgba(25,255,255,0.2); color: white; cursor: pointer; display: flex; align-items: center; gap: 8px; transition: all 0.2s ease;">
+                    <span id="room-code-display"
+                        style="font-family: monospace; font-size: 1rem; letter-spacing: 1px;"></span>
+                    <span style="font-size: 0.9rem; opacity: 0.7;">📋</span>
+                </button>
+                <button id="header-leave-btn" class="nav-btn danger">Leave</button>
+            </div>
+        </div>
+
+        <!-- Video Grid (3 Columns) -->
+        <div id="video-grid">
+            <!-- Instructor Column -->
+            <div id="instructor-column" class="video-column">
+                <div class="column-header">Instructor</div>
+                <!-- Video will be moved here -->
+            </div>
+
+            <!-- Transcription Column -->
+            <div id="transcription-column" class="transcription-column">
+                <!-- Instructor Transcript -->
+                <div class="transcription-box">
+                    <div class="box-header">Instructor Transcript</div>
+                    <div id="instructor-transcript" class="transcript-content"></div>
+                </div>
+                <!-- Student Transcript -->
+                <div class="transcription-box">
+                    <div class="box-header">Student Transcript</div>
+                    <div id="student-transcript" class="transcript-content"></div>
+                </div>
+            </div>
+
+            <!-- Student Column -->
+            <div id="student-column" class="video-column">
+                <div class="column-header">Student</div>
+                <!-- Video will be moved here -->
+            </div>
+        </div>
+
+        <!-- Controls -->
+        <div class="controls-bar"
+            style="display: flex; justify-content: center; gap: 15px; padding: 15px; background: rgba(0,0,0,0.5);">
+            <div id="recording-controls" style="display: none; gap: 10px;">
+                <button class="control-btn" id="record-btn" title="Start Recording">🔴</button>
+                <button class="control-btn" id="pause-btn" title="Pause Recording" style="display: none;">⏸️</button>
+                <button class="control-btn danger" id="stop-btn" title="Stop Recording"
+                    style="display: none;">⏹️</button>
+            </div>
+            <button class="control-btn" id="mic-btn" title="Toggle Microphone">🎤</button>
+            <button class="control-btn" id="cam-btn" title="Toggle Camera">📷</button>
+            <button class="control-btn danger" id="leave-btn" title="Leave Call">📞</button>
+        </div>
+
+        <!-- Hidden Holding Area for Videos -->
+        <div id="video-holding-area" style="display: none;">
+            <div id="local-wrapper" class="video-wrapper">
+                <video id="local-video" autoplay muted playsinline></video>
+                <div class="video-label">You</div>
+                <div id="local-subtitle" class="subtitle-display"></div>
+            </div>
+            <div id="remote-wrapper" class="video-wrapper">
+                <video id="remote-video" autoplay playsinline></video>
+                <div class="video-label">Peer</div>
+                <div id="remote-subtitle" class="subtitle-display"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Save Recording Modal -->
+    <div id="save-modal" class="modal">
+        <div class="modal-content glass-card">
+            <h2>Save Recording</h2>
+            <p>Please provide details for the recording:</p>
+
+            <div class="input-group" style="margin-bottom: 15px;">
+                <label style="display: block; margin-bottom: 5px; color: var(--text-secondary);">Student
+                    Name:</label>
+                <input type="text" id="student-name-input" placeholder="Enter Student Name" required>
+            </div>
+
+            <div class="input-group" style="margin-bottom: 20px;">
+                <label style="display: block; margin-bottom: 8px; color: var(--text-secondary);">Interview
+                    Type:</label>
+                <div style="display: flex; gap: 20px;">
+                    <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
+                        <input type="radio" name="interview-type" value="Entrance" checked>
+                        <span>Entrance</span>
+                    </label>
+                    <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
+                        <input type="radio" name="interview-type" value="Exit">
+                        <span>Exit</span>
+                    </label>
+                </div>
+            </div>
+
+            <div style="background: rgba(255,255,255,0.05); padding: 10px; border-radius: 8px; margin-bottom: 20px;">
+                <label
+                    style="display: block; font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 4px;">Filename
+                    Preview:</label>
+                <div id="filename-preview" style="font-family: monospace; color: #818CF8; word-break: break-all;">
+                    [Interviewer] - [Student] | [Date] | Entrance
+                </div>
+            </div>
+
+            <div style="display: flex; gap: 10px; justify-content: flex-end; margin-top: 20px;">
+                <button id="delete-rec-btn" class="nav-btn danger"
+                    style="border: 1px solid var(--danger-color); color: var(--danger-color);">Discard</button>
+                <button id="confirm-save-btn" class="cta-btn">Save Recording</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Activity Log Modal -->
+    <div id="activity-log-modal" class="modal"
+        style="display: none; position: fixed; z-index: 2001; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.7);">
+        <div class="modal-content glass-card"
+            style="position: relative; margin: 5% auto; padding: 20px; width: 80%; max-width: 600px; max-height: 80vh; overflow-y: auto;">
+            <span onclick="document.getElementById('activity-log-modal').style.display='none'"
+                style="color: white; float: right; font-size: 28px; font-weight: bold; cursor: pointer;">&times;</span>
+            <h2>Activity Log</h2>
+            <div id="meeting-activity-log"
+                style="height: 400px; overflow-y: auto; background: rgba(0,0,0.3); padding: 10px; border-radius: 8px; margin-top: 10px;">
+                <!-- Activity log entries will appear here -->
+            </div>
+        </div>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script type="module" src="js/meeting/index.js"></script>
+</body>
+
+</html>

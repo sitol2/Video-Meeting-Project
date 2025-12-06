@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Interview</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/admin.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Google+Sans:wght@400;500;700&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <div class="dashboard-layout">
+        <aside class="sidebar" id="sidebar-container"></aside>
+
+        <main class="main-content">
+            <div class="dashboard-header">
+                <h1 class="dashboard-title">Admin Dashboard</h1>
+                <div class="header-actions">
+                    <button class="generate-btn" id="generate-code-btn">Generate Meeting Code</button>
+                </div>
+            </div>
+
+            <div class="dashboard-grid">
+                <div class="card">
+                    <div class="card-header">
+                        <span class="card-icon">📅</span>
+                        <h2 class="card-title">Schedule Manager</h2>
+                    </div>
+                    <div class="card-content">
+                        <p>Manage interview slots and appointments</p>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <span class="card-icon">📞</span>
+                        <h2 class="card-title">Quick Actions</h2>
+                    </div>
+                    <div class="card-content">
+                        <p>Generate a meeting code to start an interview session</p>
+                    </div>
+                </div>
+
+                <div class="card activity-log">
+                    <div class="card-header">
+                        <span class="card-icon">📝</span>
+                        <h2 class="card-title">Activity Log</h2>
+                    </div>
+                    <div class="card-content">
+                        <div class="log-content" id="activity-log">
+                            <div class="log-entry">
+                                <span class="log-time">[System]</span>
+                                <span class="log-message">Dashboard initialized</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Confirmation Modal -->
+    <div id="confirm-modal" class="modal">
+        <div class="modal-content">
+            <h2>Create Meeting</h2>
+            <p>Meeting code generated:</p>
+            <div style="font-size: 2rem; font-weight: 700; color: #06B6D4; letter-spacing: 2px; margin: 20px 0; text-align: center;"
+                id="confirm-code"></div>
+            <p style="color: var(--text-muted);">You will be redirected to the meeting lobby where you can invite
+                students.</p>
+            <div class="modal-buttons">
+                <button id="confirm-no" class="nav-btn">Cancel</button>
+                <button id="confirm-yes" class="cta-btn">Go to Meeting</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/shared/navigation.js"></script>
+    <script src="js/admin.js"></script>
+</body>
+
+</html>

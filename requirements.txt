@@ -1,0 +1,4 @@
+transformers>=4.57.0
+torch>=2.0.0
+nltk>=3.8.0
+sentencepiece>=0.1.99
